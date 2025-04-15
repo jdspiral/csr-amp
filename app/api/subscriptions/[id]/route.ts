@@ -1,3 +1,4 @@
+// app/api/subscriptions/[id]/route.ts
 import { STATUS } from '@/lib/constants/status';
 import { supabase } from '@/lib/supabase';
 import { NextResponse } from 'next/server';
@@ -42,10 +43,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(_req: Request, { params }: { params: { id: string } }) {
   try {
     const userId = params.id;
 
@@ -77,8 +75,8 @@ export async function GET(
       );
     }
 
-  return NextResponse.json(data, { status: STATUS.OK });
-} catch (err) {
+    return NextResponse.json(data, { status: STATUS.OK });
+  } catch (err) {
     if (err instanceof Error) {
       console.error('Server error:', err.message);
       return NextResponse.json(
@@ -104,11 +102,13 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: STATUS.SERVER_ERROR });
     }
     return NextResponse.json(data, { status: STATUS.OK });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+  } catch (err) {
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+    }
   }
 }
-  
+
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
