@@ -77,18 +77,19 @@ export async function GET(
       );
     }
 
-    return NextResponse.json(data, { status: STATUS.OK });
-  } catch (err) {
-  if (err instanceof Error) {
-    console.error('Server error:', err.message);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: STATUS.SERVER_ERROR }
-    );
+  return NextResponse.json(data, { status: STATUS.OK });
+} catch (err) {
+    if (err instanceof Error) {
+      console.error('Server error:', err.message);
+      return NextResponse.json(
+        { error: 'Internal server error' },
+        { status: STATUS.SERVER_ERROR }
+      );
+    }
   }
 }
 
-  export async function PUT(
+export async function PUT(
     request: Request,
     { params }: { params: { id: string } }
   ) {
