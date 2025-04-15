@@ -108,7 +108,6 @@ export async function PUT(
       return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
     }
   }
-}
   
 export async function DELETE(
   request: Request,
