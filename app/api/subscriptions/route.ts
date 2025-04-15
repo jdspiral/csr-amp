@@ -37,8 +37,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: STATUS.SERVER_ERROR });
       }
       return NextResponse.json(data, { status: STATUS.CREATED });
-    } catch (err: any) {
-      return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+    } catch (err) {
+      if (err instanceof Error) {
+        return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+      }
     }
   }
 

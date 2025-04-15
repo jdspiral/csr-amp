@@ -20,8 +20,6 @@ interface UserDetailProps {
 }
 
 export default function UserDetail({ userId }: UserDetailProps) {
-  const router = useRouter();
-
   const [user, setUser] = useState<User | null>(null);
   const [form, setForm] = useState({ name: '', email: '', phone: '' });
   const [loading, setLoading] = useState(true);
@@ -39,7 +37,7 @@ export default function UserDetail({ userId }: UserDetailProps) {
     year: '',
   });
   const [addingVehicle, setAddingVehicle] = useState(false);
-  const [showVehicleFormOnActivate, setShowVehicleFormOnActivate] = useState(false);
+  const [showVehicleFormOnActivate] = useState(false);
 
   useEffect(() => {
     async function fetchUserDetails() {

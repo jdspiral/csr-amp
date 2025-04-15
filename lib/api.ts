@@ -61,7 +61,7 @@ export async function updateVehicle(
  */
 export async function updateUser(
   userId: string,
-  data: Partial<User> | Record<string, any>
+  data: Partial<User> | Record<string, string | number>
 ): Promise<User> {
   const res = await fetch(`${baseUrl}/api/users/${userId}`, {
     method: HTTP_METHOD.PUT,

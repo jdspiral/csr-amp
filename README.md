@@ -42,6 +42,7 @@ AMP CSR Portal is a customer service representative dashboard built with Next.js
 - Add CI/CD
 - Proper testing suite
 - Improved modularization of larger components
+- Improved error logging
 
 ---
 

@@ -20,7 +20,7 @@ function SubscriptionList({
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [plan, setPlan] = useState('');
   const [vehicleId, setVehicleId] = useState('');
-  const [status, setStatus] = useState('active');
+  const [status] = useState('active');
   const [message, setMessage] = useState('');
 
   async function fetchSubscriptions() {
@@ -54,7 +54,7 @@ function SubscriptionList({
       setVehicleId('');
       await fetchSubscriptions();
     } catch (err) {
-      setMessage('Error adding subscription');
+      setMessage(`${err}: Error adding subscription`);
     }
   }
 
@@ -63,7 +63,7 @@ function SubscriptionList({
       await deleteSubscription(subscriptionId);
       await fetchSubscriptions();
     } catch (err) {
-      setMessage('Error deleting subscription');
+      setMessage(`${err}: Error deleting subscription`);
     }
   }
 

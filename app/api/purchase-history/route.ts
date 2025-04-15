@@ -5,7 +5,7 @@ import { STATUS } from '@/lib/constants/status';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { user_id, purchase_date, amount, description, plan, vehicle_id } = body;
+    const { user_id, purchase_date, amount, description, plan } = body;
     
     if (!user_id || !purchase_date || !amount || !description) {
       return NextResponse.json({ error: 'Missing fields' }, { status: STATUS.BAD_REQUEST });

@@ -1,7 +1,5 @@
-import { Subscription } from '@/interfaces';
 import { STATUS } from '@/lib/constants/status';
 import { supabase } from '@/lib/supabase';
-import { ST } from 'next/dist/shared/lib/utils';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -36,9 +34,11 @@ export async function POST(request: Request) {
 
     console.log('Subscription created successfully:', data);
     return NextResponse.json(data, { status: STATUS.CREATED });
-  } catch (err: any) {
-    console.error('Server Error in POST /api/subscriptions:', err);
-    return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error('Server Error in POST /api/subscriptions:', err);
+      return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+    }
   }
 }
 
@@ -78,7 +78,8 @@ export async function GET(
     }
 
     return NextResponse.json(data, { status: STATUS.OK });
-  } catch (err: any) {
+  } catch (err) {
+  if (err instanceof Error) {
     console.error('Server error:', err.message);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -106,22 +107,25 @@ export async function GET(
       return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
     }
   }
+}
   
-  export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
-  ) {
-    const id = params.id;
-    try {
-      const { data, error } = await supabase
-        .from('subscriptions')
-        .delete()
-        .eq('id', id);
-      if (error) {
-        return NextResponse.json({ error: error.message }, { status: STATUS.SERVER_ERROR });
-      }
-      return NextResponse.json({ message: `Subscription ${id} deleted`, data }, { status: STATUS.OK });
-    } catch (err: any) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const id = params.id;
+  try {
+    const { data, error } = await supabase
+      .from('subscriptions')
+      .delete()
+      .eq('id', id);
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: STATUS.SERVER_ERROR });
+    }
+    return NextResponse.json({ message: `Subscription ${id} deleted`, data }, { status: STATUS.OK });
+  } catch (err) {
+    if (err instanceof Error) {
       return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
     }
   }
+}

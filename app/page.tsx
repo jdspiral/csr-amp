@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function HomePage() {
   return (
     <div>
@@ -6,12 +8,12 @@ export default function HomePage() {
         Manage users, vehicles, and subscriptions with ease.
       </p>
       <div className="flex gap-4">
-        <a href="/dashboard" className="text-blue-600 hover:underline">
+        <Link href="/dashboard" className="text-blue-600 hover:underline">
           Go to Dashboard
-        </a>
-        <a href="/users" className="text-blue-600 hover:underline">
+        </Link>
+        <Link href="/users" className="text-blue-600 hover:underline">
           Manage Users
-        </a>
+        </Link>
       </div>
     </div>
   );
