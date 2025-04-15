@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, FormEvent, useCallback, ChangeEvent } from 'react';
-import { useRouter } from 'next/navigation';
 import type { User, Vehicle, Subscription, PurchaseHistory } from '@/interfaces';
 import {
   getUser,

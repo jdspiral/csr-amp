@@ -1,12 +1,12 @@
 import { STATUS } from '@/lib/constants/status';
 import { supabase } from '@/lib/supabase';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = (await params).id;
+  const { id } = await context.params;
   try {
     const body = await request.json();
     const { data, error } = await supabase
@@ -17,13 +17,15 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: STATUS.SERVER_ERROR });
     }
     return NextResponse.json(data);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+  } catch (err) {
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: STATUS.SERVER_ERROR });
+    }
   }
 }
 
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
       const body = await request.json();
       const { user_id, vehicle_id, plan, start_date, status } = body;

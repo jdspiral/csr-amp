@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, memo, ChangeEvent } from 'react';
+import { useState, useEffect, useCallback, memo, ChangeEvent } from 'react';
 import type { Subscription, Vehicle } from '@/interfaces';
 import {
   getSubscriptionsByUser,
@@ -13,28 +13,26 @@ interface SubscriptionListProps {
   refreshVehicles: () => Promise<void>;
 }
 
-function SubscriptionList({
-  userId,
-  vehicles
-}: SubscriptionListProps) {
+function SubscriptionList({ userId, vehicles }: SubscriptionListProps) {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [plan, setPlan] = useState('');
   const [vehicleId, setVehicleId] = useState('');
   const [status] = useState('active');
   const [message, setMessage] = useState('');
 
-  async function fetchSubscriptions() {
+  // Memoize the fetchSubscriptions function so it doesn't change on every render.
+  const fetchSubscriptions = useCallback(async () => {
     try {
       const subs = await getSubscriptionsByUser(userId);
       setSubscriptions(subs);
     } catch (err) {
       console.error('Error fetching subscriptions:', err);
     }
-  }
+  }, [userId]);
 
   useEffect(() => {
     fetchSubscriptions();
-  }, [userId]);
+  }, [fetchSubscriptions]);
 
   async function handleAddSubscription(e: React.FormEvent) {
     e.preventDefault();

@@ -1,10 +1,10 @@
 import { STATUS } from '@/lib/constants/status';
 import { supabase } from '@/lib/supabase';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  _req: Request,
-  context: { params: { id: string } }
+  _req: NextRequest,
+    context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params;
 

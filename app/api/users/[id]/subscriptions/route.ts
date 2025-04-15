@@ -1,10 +1,10 @@
 import { STATUS } from '@/lib/constants/status';
 import { supabase } from '@/lib/supabase';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
-  _req: Request,
-  context: { params: { id: string } }
+  _req: NextRequest,
+    context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params;
 
@@ -21,7 +21,7 @@ export async function GET(
   return NextResponse.json(data);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
   const { vehicle_id, status, plan, start_date } = body;
 

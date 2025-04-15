@@ -1,13 +1,12 @@
-// app/api/subscriptions/[id]/route.ts
 import { STATUS } from '@/lib/constants/status';
 import { supabase } from '@/lib/supabase';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+    context: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
+  const { id } = await context.params;
   try {
     const body = await request.json();
     const { data, error } = await supabase
@@ -25,7 +24,7 @@ export async function PUT(
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     console.log('Creating subscription with payload:', body);
@@ -65,10 +64,12 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  _req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params; 
   try {
-    const userId = params.id;
-
     const { data, error } = await supabase
       .from('subscriptions')
       .select(`
@@ -87,33 +88,27 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
           year
         )
       `)
-      .eq('user_id', userId);
+      .eq('id', id);
 
     if (error) {
       console.error('Supabase error:', error.message);
-      return NextResponse.json(
-        { error: 'Failed to fetch subscriptions' },
-        { status: STATUS.SERVER_ERROR }
-      );
+      return NextResponse.json({ error: 'Failed to fetch subscription' }, { status: STATUS.SERVER_ERROR });
     }
 
     return NextResponse.json(data, { status: STATUS.OK });
   } catch (err) {
     if (err instanceof Error) {
       console.error('Server error:', err.message);
-      return NextResponse.json(
-        { error: 'Internal server error' },
-        { status: STATUS.SERVER_ERROR }
-      );
+      return NextResponse.json({ error: 'Internal server error' }, { status: STATUS.SERVER_ERROR });
     }
   }
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  _req: NextRequest,
+  { params }: { params: Promise<Record<string, string>> }
 ) {
-  const id = params.id;
+  const { id }  = await params;
   try {
     const { data, error } = await supabase
       .from('subscriptions')

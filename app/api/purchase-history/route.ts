@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import type { PurchaseHistory } from '@/interfaces';
 import { STATUS } from '@/lib/constants/status';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { user_id, purchase_date, amount, description, plan } = body;

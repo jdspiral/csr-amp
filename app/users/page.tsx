@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getUsers } from '@/lib/api';
 import UserList from '@/components/UserList';
 

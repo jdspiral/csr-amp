@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { STATUS } from '@/lib/constants/status';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url, process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000');
+    console.log('url', url)
     const searchQuery = url.searchParams.get('search') || '';
 
     let query = supabase.from('users').select('*').order('created_at', { ascending: false });
