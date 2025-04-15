@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AMP CSR Portal
 
-## Getting Started
+AMP CSR Portal is a customer service representative dashboard built with Next.js 15, Supabase, and TailwindCSS. It allows CSR agents to manage users, vehicles, subscriptions, and purchase history for AMP Car Wash memberships.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+- View, search, and edit users
+- Edit or cancel user accounts
+- Manage vehicles
+- Transfer and manage subscriptions
+- View purchase history for users
+- Real-time updates after edits
+- Error handling and alerts
+- Modular and reusable components
+- Supabase as backend + DB
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js App Router, TailwindCSS
+- **Backend:** Supabase (PostgreSQL)
+- **API:** REST via API Routes
+- **Type Safety:** TypeScript
+- **State Management:** React `useState`, `useEffect`, `useCallback`, `useMemo`
+- **Deployment:** Vercel
+
+---
+
+## 🔍 Suggested Improvements
+
+- Add proper authentication and role-based access
+- Add pagination server-side
+- Add ability to add/delete new vehicles
+- Add ability to add/delete users
+- Migrate to TanStack Query for better state handling as project grows
+- Implement confirmation modals for destructive actions
+- Optimize Supabase queries with indexes
+- Introduce loading and error states per component
+- Add CI/CD
+- Proper testing suite
+- Improved modularization of larger components
+
+---
+
+## 📁 Project Structure
+
 ```
+app/
+  api/             → API route handlers
+  users/           → User pages
+components/        → Reusable UI components
+interfaces/        → TypeScript interfaces
+lib/               → API helpers & Supabase config
+public/            → Static assets
+styles/            → Tailwind and globals
+```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📄 License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT — feel free to use and adapt.
