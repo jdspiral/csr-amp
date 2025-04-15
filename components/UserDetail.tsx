@@ -144,10 +144,6 @@ export default function UserDetail({ userId }: UserDetailProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">User Details</h2>
-
-      {message && <p className="text-green-600 mb-4">{message}</p>}
-
       <form onSubmit={handleSave} className="space-y-4 mb-8">
         <input
           type="text"
